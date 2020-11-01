@@ -1,0 +1,23 @@
+{% extends 'kisan/base.html' %}
+{% load static %}
+{% block title %} Login Page {% endblock title %}
+{% block body %}
+<div class="form-group container">
+    <form method="POST" class="mt-5">
+        {% csrf_token %}
+        {% for i in form %}
+    {{i.label_tag}} {{i}} {{i.errors|striptags}}
+        <br><br>
+    {% endfor %}
+        <input type="Submit" value="Submit" class="btn btn-primary md-3">
+    </form>
+    Don't have an account <a href="{% url 'signup' %}" >Sign Up</a> here.
+    {% if messages %}
+        {% for i in messages %}
+            {{i}}
+        {% endfor %}
+    {% endif %}
+
+</div>
+
+ {% endblock body %}

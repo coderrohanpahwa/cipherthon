@@ -1,0 +1,126 @@
+{% extends 'kisan/base.html' %}
+{% load static %}
+{% block title %} Home Page {% endblock title %}
+{% block body %}
+<div class="container my-4">
+ {% if objs or obje or objg %}
+  {% if objs %}
+<h1>Today's Special</h1>
+    <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+      <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+          <h1></h1>
+          <div class="row">
+
+          {% for i in objs %}
+            <div class="col-md-4">
+              <div class="card mb-2">
+                <img class="card-img-top" src="{{i.image}}">
+
+                <div class="card-body">
+                  <h4 class="card-title text-secondary">{{i.name}}</h4>
+                  <p class="card-text text-warning"><span class="text-danger">Price </span> : ₹ {{i.price}}</p>
+                  <p class="card-text text-warning">{{i.desc}}</p>
+                  {% if request.user.is_authenticated %}
+                  <form method="POST" class="text-secondary">
+                    {% csrf_token %}
+                      {% for i in form %}
+                        {% if i.id_for_label == 'id_quantity' %}
+                          {{i.label_tag}} {{i}} {{i.errors|striptags}}
+                        {% endif %}
+                    {% endfor %}
+                    <input type="hidden" name="vege" value="{{i.name}}" >
+                    <input type="hidden" name="price" value="{{i.price}}" >
+                  <input type="Submit" value="Add to cart" class="btn btn-primary">
+                    {% endif %}
+                  </form>
+
+
+                </div>
+              </div>
+            </div>
+
+
+        {% endfor %}
+{% endif %}
+            <div class="container my-4">
+              {% if obje %}
+              <h1>Essentials</h1>
+    <div class="carousel slide carousel-multi-item" data-ride="carousel">
+      <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+          <h1></h1>
+          <div class="row">
+
+          {% for i in obje %}
+            <div class="col-md-4">
+              <div class="card mb-2">
+                <img class="card-img-top" src="{{i.image}}">
+
+                <div class="card-body">
+                  <h4 class="card-title text-secondary">{{i.name}}</h4>
+                  <p class="card-text text-warning"><span class="text-danger">Price </span> : ₹ {{i.price}}</p>
+                  <p class="card-text text-warning">{{i.desc}}</p>
+                  {% if request.user.is_authenticated %}
+                      <form method="POST" class="text-secondary">
+                    {% csrf_token %}
+                      {% for i in form %}
+                        {% if i.id_for_label == 'id_quantity' %}
+                          {{i.label_tag}} {{i}} {{i.errors|striptags}}
+                        {% endif %}
+                    {% endfor %}
+                        <input type="hidden" name="vege" value="{{i.name}}"  >
+                        <input type="hidden" name="price" value="{{i.price}}"  >
+                  <input type="Submit" value="Add to cart" class="btn btn-primary">
+                  {% endif %}
+                      </form>
+                </div>
+              </div>
+            </div>
+
+
+        {% endfor %}
+            {% endif %}
+            <div class="container my-4">
+              {% if objg %}
+<h1>Green Vegetables</h1>
+    <div class="carousel slide carousel-multi-item" data-ride="carousel">
+      <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active">
+          <h1></h1>
+          <div class="row">
+
+          {% for i in objg %}
+            <div class="col-md-4">
+              <div class="card mb-2">
+                <img class="card-img-top" src="{{i.image}}">
+
+                <div class="card-body">
+                  <h4 class="card-title text-secondary">{{i.name}}</h4>
+                  <p class="card-text text-warning"><span class="text-danger">Price </span> : ₹ {{i.price}}</p>
+                  <p class="card-text text-warning">{{i.desc}}</p>
+                  {% if request.user.is_authenticated %}
+                      <form method="POST" class="text-secondary">
+                    {% csrf_token %}
+                      {% for j in form %}
+                        {% if j.id_for_label == 'id_quantity' %}
+                          {{j.label_tag}} {{j}} {{j.errors|striptags}}
+                        {% endif %}
+                    {% endfor %}
+
+                         <input type="hidden" name="vege" value="{{i.name}}"  >
+                         <input type="hidden" name="price" value="{{i.price}}"  >
+                  <input type="Submit" value="Add to cart" class="btn btn-primary">
+                  {% endif %}
+                      </form>
+                </div>
+              </div>
+            </div>
+
+
+        {% endfor %}
+{% endif %}
+{% else %}
+            <h1 class="alert alert-warning text-warning bg-danger" align="center">We don't have any entry in our database. To sell your product <a href="{% url 'sell'%}">Click here</a></h1>
+   {% endif %}
+{% endblock body %}

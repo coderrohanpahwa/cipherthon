@@ -1,0 +1,47 @@
+{% extends 'kisan/base.html' %}
+{% block title %} Cart {% endblock title%}
+{% block body %}
+
+<div class="container">
+    {% if obj %}
+    <h1>Items in cart </h1>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Product Name </th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for i in obj%}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{i.vege}}</td>
+      <td>{{i.price}}</td>
+      <td>{{i.quantity}}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+    There is no item in your cart . <a href="{% url 'home' %}">Click here</a> to shop
+    {% endif %}
+</div>
+
+
+
+
+<div class="container">
+    <form method="POST" class="mt-5">
+        {% csrf_token %}
+        {% for i in form %}
+            {{i.label_tag}} {{i}} {{i.errors|striptags}}
+                    <br>
+
+        {% endfor %}
+        <input type="Submit" value="Place Order" class="btn btn-primary mb-4">
+    </form>
+    </div>
+{% endblock body %}

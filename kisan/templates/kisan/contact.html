@@ -1,0 +1,19 @@
+{% extends 'kisan/base.html' %}
+{% block title %} Contact
+{% endblock title %}
+{% block body %}
+<div class="container">
+    <form method="POST" class="mt-5">
+        {% csrf_token %}
+        {% for i in form %}
+            {{i.label_tag}} {{i}} {{i.errors | striptags }}
+        {% endfor %}
+        <input type="Submit" value="Submit" class="btn btn-primary mt-2">
+    </form>
+{% if messages %}
+    {% for i in messages %}
+        {{i}}
+    {% endfor %}
+{% endif %}
+{% endblock body %}
+    </div>
